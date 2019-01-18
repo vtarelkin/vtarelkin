@@ -1,12 +1,15 @@
 import akka.actor.ActorSystem
-import akka.actor.Status.Success
+
+import scala.concurrent.Future
+//import akka.http.javadsl.model.{HttpRequest, HttpResponse}
 import akka.http.scaladsl.Http
-import akka.http.scaladsl.model._
+import akka.http.scaladsl.marshalling.Marshal
+//import akka.http.scaladsl.model.{HttpRequest, Uri}
 import akka.http.scaladsl.server.Directives._
 import akka.stream.ActorMaterializer
-
+import akka.http.scaladsl.model.HttpMethods.GET
+import akka.http.scaladsl.model._
 import scala.concurrent.ExecutionContext
-import scala.io.StdIn
 
 object WebServer extends App {
 
@@ -20,20 +23,37 @@ object WebServer extends App {
   val port = 9000
 
 
-  def route = path("hello") {
-    get {
-      complete("Hello world, what's your name?")
-    }
-    post {
-      complete("Welcome to the system, %username%")
+//  def route = path("hello") {
+//    get {
+//      complete("Hello world, what's your name?")
+//    } ~
+//    post {
+//      complete("Welcome to the system, username")
+//    }
+//  }
+
+
+
+
+  val requestHandler: HttpRequest => Future[HttpResponse] = {
+    case HttpRequest(
+    GET,
+    Uri.Path("/hello"),
+    _, // matches any headers
+    _, // matches any HTTP entity (HTTP body)
+    _  // matches any HTTP protocol
+    ) => {
+      val m = Marshal("Richard Imaoka")
+      m.to[HttpResponse]
     }
   }
 
-  val bindingFuture = Http().bindAndHandle(route, host, port)
+  val bindingFuture = Http().bindAndHandleAsync(requestHandler, "localhost", 9000)
+  //val bindingFuture = Http().bindAndHandle(route, host, port)
   bindingFuture
     .onComplete {
       case util.Success(serverBinding)
-      => println(s"Server is listening to: ${host +"/" +port}")
+      => println(s"Server is listening to: ${host + "/" + port}")
       case scala.util.Failure(error: Error)
       => println(s"error: ${error.getMessage}")
     }

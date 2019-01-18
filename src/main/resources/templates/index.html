@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HelloWorldSample</title>
+    <script type="text/javascript">
+        function add() {
+            var userName = document.getElementById("inputNameBox").value;
+            var userNameToJson = JSON.stringify(userName);
+            alert(userNameToJson);
+
+        }
+    </script>
+</head>
+<body>
+<input type="text" name="" id="inputNameBox">
+<button onclick="add()">That's me!</button>
+</body>
+</html>
