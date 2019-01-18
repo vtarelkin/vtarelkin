@@ -22,21 +22,7 @@ object WebServer extends App {
   val host = "0.0.0.0"
   val port = 9000
 
-
-  val route = path("hello") {
-    get {
-      {
-        complete("")
-        getFromResource("templates/index.html")
-      }} ~
-        post {
-          {
-            complete("Welcome to the system, username")
-          }
-        }
-    }
-
-
+  val route = ApiRouter.route ~ UtilityRouter.route
   //val bindingFuture = Http().bindAndHandle(staticResources, "localhost", 9000)
 
 
