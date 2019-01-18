@@ -1,10 +1,11 @@
+import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives._
 
 object ApiRouter {
-  val route = path("hello") {
+  val route = getFromResourceDirectory("templates") ~ path("hello") {
     get {
       {
-        getFromResource("index.html")
+        redirect("templates/index.html", StatusCodes.PermanentRedirect)
       }
     }~
       post {

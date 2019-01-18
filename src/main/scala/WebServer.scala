@@ -22,7 +22,7 @@ object WebServer extends App {
   val host = "0.0.0.0"
   val port = 9000
 
-  val route = ApiRouter.route ~ UtilityRouter.route
+  val route = ApiRouter.route
   //val bindingFuture = Http().bindAndHandle(staticResources, "localhost", 9000)
 
 
