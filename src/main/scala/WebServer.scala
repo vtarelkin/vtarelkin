@@ -23,33 +23,53 @@ object WebServer extends App {
   val port = 9000
 
 
-//  def route = path("hello") {
-//    get {
-//      complete("Hello world, what's your name?")
-//    } ~
-//    post {
-//      complete("Welcome to the system, username")
-//    }
-//  }
-
-
-
-
-  val requestHandler: HttpRequest => Future[HttpResponse] = {
-    case HttpRequest(
-    GET,
-    Uri.Path("/hello"),
-    _, // matches any headers
-    _, // matches any HTTP entity (HTTP body)
-    _  // matches any HTTP protocol
-    ) => {
-      val m = Marshal("Richard Imaoka")
-      m.to[HttpResponse]
+  val route = path("hello") {
+    get {
+      {
+        complete("")
+        getFromResource("templates/index.html")
+      }} ~
+        post {
+          {
+            complete("Welcome to the system, username")
+          }
+        }
     }
-  }
 
-  val bindingFuture = Http().bindAndHandleAsync(requestHandler, "localhost", 9000)
-  //val bindingFuture = Http().bindAndHandle(route, host, port)
+
+  //val bindingFuture = Http().bindAndHandle(staticResources, "localhost", 9000)
+
+
+  //  val route = path("hello") {
+  //    get {
+  //  //    complete("Hello world, what's your name?")
+  //      redirectToTrailingSlashIfMissing(StatusCodes.TemporaryRedirect)
+  //      getFromResourceDirectory("templates")
+  //    } ~
+  //    post {
+  //      complete("Welcome to the system, username")
+  //    }
+  //  }
+
+
+  //
+  //  val requestHandler: HttpRequest => Future[HttpResponse] = {
+  //    case HttpRequest(
+  //    GET,
+  //    Uri.Path("/hello"),
+  //    _, // matches any headers
+  //    _, // matches any HTTP entity (HTTP body)
+  //    _  // matches any HTTP protocol
+  //    ) => {
+  //      val m = Marshal("Richard Imaoka")
+  //      m.to[HttpResponse]
+  //    }
+  //  }
+
+  //  val bindingFuture = Http().bindAndHandleAsync(requestHandler, "localhost", 9000)
+
+
+  val bindingFuture = Http().bindAndHandle(route, host, port)
   bindingFuture
     .onComplete {
       case util.Success(serverBinding)
@@ -57,6 +77,8 @@ object WebServer extends App {
       case scala.util.Failure(error: Error)
       => println(s"error: ${error.getMessage}")
     }
+
+
   //
   //  println(s"Server online at http://localhost:9000/\nPress RETURN to stop...")
   //  StdIn.readLine() // let it run until user presses return

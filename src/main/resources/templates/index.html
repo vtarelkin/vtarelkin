@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
     <meta charset="UTF-8">
     <title>HelloWorldSample</title>
     <script type="text/javascript">
         function add() {
             var userName = document.getElementById("inputNameBox").value;
             var userNameToJson = JSON.stringify(userName);
-            alert(userNameToJson);
 
+            alert(userNameToJson);
         }
     </script>
 </head>
 <body>
-<input type="text" name="" id="inputNameBox">
-<button onclick="add()">That's me!</button>
+<div class="main">
+    <span class="sampleText">Hello world, what's your name? </span>
+    <input type="text" class="inputBox" name="" placeholder="enter your name here" id="inputNameBox">
+    <button onclick="add()">That's me!</button>
+</div>
 </body>
 </html>
