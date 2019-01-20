@@ -1,8 +1,9 @@
+import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import akka.http.scaladsl.model.{StatusCodes}
 import akka.http.scaladsl.server.Directives._
 import spray.json.{DefaultJsonProtocol, JsValue}
 
-object ApiRouter extends DefaultJsonProtocol {
+object ApiRouter extends SprayJsonSupport with DefaultJsonProtocol {
 
 
     val route = getFromResourceDirectory("templates") ~ path("hello") {
