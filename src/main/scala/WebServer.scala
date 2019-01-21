@@ -59,7 +59,7 @@ object WebServer extends App {
   bindingFuture
     .onComplete {
       case util.Success(serverBinding)
-      => println(s"Server is listening to: ${host + "/" + port}")
+      => println(s"Server is listening on: ${host + "/" + port}")
       case scala.util.Failure(error: Error)
       => println(s"error: ${error.getMessage}")
     }

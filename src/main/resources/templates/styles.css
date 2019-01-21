@@ -1,3 +1,20 @@
-.main {
-    alignment: right;
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+.main_container-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+
+}
+.inputBox {
+    margin: 0 10px;
+}
+.greetingText {
+    margin-bottom: 50px;
 }
