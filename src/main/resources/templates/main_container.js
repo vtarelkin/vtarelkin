@@ -27,7 +27,7 @@ class App extends React.Component {
             .then((response) => {
                 // Initialize the DOM parser
                 var parser = new DOMParser();
-                // // Parse the text
+                // Parse the text
                 var doc = parser.parseFromString(response, "text/html");
                 var htmlString = new XMLSerializer().serializeToString(doc)
                 console.log(doc.getElementsByTagName("div").item(0))
@@ -51,8 +51,6 @@ class App extends React.Component {
             <div className="main_container-content">
                 <div className="greetingText">
                     <div dangerouslySetInnerHTML={{__html: receivedName}}></div>
-                    {/*<div dangerouslySetInnerHTML={receivedName}/>*/}
-                    {/*{!!receivedName && <span className="greetingText" id="greetingTextBox">{receivedName}</span>}*/}
                 </div>
                 <div>
                     <span className="sampleText">Hello world, what's your name? </span>
@@ -66,4 +64,3 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App/>, document.getElementById('main_container'));
-
