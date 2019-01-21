@@ -4,7 +4,6 @@ import spray.json.{DefaultJsonProtocol, JsValue}
 
 object ApiRouter extends SprayJsonSupport with DefaultJsonProtocol {
 
-
     val route = getFromResourceDirectory("templates") ~ path("hello") {
       get {
         {
@@ -15,8 +14,7 @@ object ApiRouter extends SprayJsonSupport with DefaultJsonProtocol {
           {
             entity(as[JsValue]) {
               jsonNameValue =>
-                complete(s"Welcome to the system, ${jsonNameValue.asJsObject.fields("name").convertTo[String]}")
-                //getFromResource("templates/index1.html")
+                complete(s"<div>Welcome to the system, ${jsonNameValue.asJsObject.fields("name").convertTo[String]}</div>")
             }
           }
         }

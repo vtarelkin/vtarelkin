@@ -23,10 +23,15 @@ class App extends React.Component {
             .then((response) => {
                 return response.text();
             })
-            .then((responseJson) => {
-                this.setState({receivedName: responseJson});
 
-                console.log(this.state.name)
+            .then((response) => {
+                // Initialize the DOM parser
+                var parser = new DOMParser();
+                // // Parse the text
+                var doc = parser.parseFromString(response, "text/html");
+                var htmlString = new XMLSerializer().serializeToString(doc)
+                console.log(doc.getElementsByTagName("div").item(0))
+                this.setState({receivedName: htmlString});
             })
             .catch((error) => {
                 console.error(error);
@@ -34,12 +39,20 @@ class App extends React.Component {
         ;
     }
 
+    async componentDidMount() {
+        fetch(`/hello`, {method: 'GET'})
+            .then(res => res.json())
+            .then(json => this.setState({data: json}));
+    }
+
     render() {
         const {name, receivedName} = this.state;
         return (
             <div className="main_container-content">
                 <div className="greetingText">
-                    {!!receivedName && <span className="greetingText" id="greetingTextBox">{receivedName}</span>}
+                    <div dangerouslySetInnerHTML={{__html: receivedName}}></div>
+                    {/*<div dangerouslySetInnerHTML={receivedName}/>*/}
+                    {/*{!!receivedName && <span className="greetingText" id="greetingTextBox">{receivedName}</span>}*/}
                 </div>
                 <div>
                     <span className="sampleText">Hello world, what's your name? </span>
