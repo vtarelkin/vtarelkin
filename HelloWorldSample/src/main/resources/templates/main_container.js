@@ -50,13 +50,13 @@ class App extends React.Component {
         return (
             <div className="main_container-content">
                 <div className="greetingText">
-                    <div dangerouslySetInnerHTML={{__html: receivedName}}></div>
+                    <div id="resultText" dangerouslySetInnerHTML={{__html: receivedName}}></div>
                 </div>
                 <div>
                     <span className="sampleText">Hello world, what's your name? </span>
                     <input type="text" className="inputBox" name="" placeholder="enter your name here"
                            id="inputNameBox" onChange={this.handleChange}/>
-                    <button disabled={!name} onClick={this.nameButtonClicked}>That's me!</button>
+                    <button id="submitButton" disabled={!name} onClick={this.nameButtonClicked}>That's me!</button>
                 </div>
             </div>
         )
