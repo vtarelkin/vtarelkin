@@ -15,6 +15,7 @@ Then(/^The results of name entered will be displayed$/) do
   begin
     element = wait.until { driver.find_element(:id => "resultText") }
     expect(element.text).to eq('Welcome to the system, Ivan Grozny')
+    expect(element.tag_name).to eq('div')
   ensure
     driver.quit
   end
