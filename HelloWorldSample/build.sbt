@@ -1,4 +1,4 @@
-name := "HelloWorldSample"
+name := "hello-world-sample"
 
 version := "0.1"
 
